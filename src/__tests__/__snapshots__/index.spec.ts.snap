@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normalize uses the non-normalized input when getting the ID for an entity 1`] = `
+Array [
+  Array [
+    Object {
+      "user": "456",
+    },
+    null,
+    null,
+  ],
+  Array [
+    Object {
+      "user": Object {
+        "id": "456",
+      },
+    },
+    null,
+    null,
+  ],
+  Array [
+    Object {
+      "user": Object {
+        "id": "456",
+      },
+    },
+    null,
+    null,
+  ],
+]
+`;
