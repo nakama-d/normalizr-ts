@@ -1,6 +1,6 @@
 {
   "name": "@nakama.d/normalizr-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": " complet & simple typescript rewrite of normalizr with Class support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     "test:lint": "prettier **/*.{ts,js,json} --check",
     "test:unit": "jest",
     "lint": "prettier **/*.{ts,js,json} --write",
-    "prepublishOnly" : "npm test && npm run build",
+    "prepublishOnly" : "npm test && npm run build && npm run lint",
     "preversion" : "npm run test"
   },
   "keywords": ["normalizr", "typescript", "json"],
@@ -27,7 +27,6 @@
     "@types/jest": "^26.0.14",
     "jest": "^26.4.2",
     "jest-extended": "^0.11.5",
-    "normalizr": "^3.6.0",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.0",
     "ts-node": "^9.0.0",
