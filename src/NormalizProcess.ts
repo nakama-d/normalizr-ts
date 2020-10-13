@@ -23,10 +23,11 @@ export class NormalizProcess {
   }
 
   get schema(): EntitySchema {
-    if (!this.schemas.get(this.schemaName)) {
+    const sch = this.schemas.get(this.schemaName)
+    if (!sch) {
       throw new SchemaNotFound(this.schemaName)
     }
-    return this.schemas.get(this.schemaName)
+    return sch
   }
 
   private normalizeFromArray = () => {
@@ -34,7 +35,7 @@ export class NormalizProcess {
       throw new TypeError('Expect both input and model to be array types')
     }
 
-    const results = []
+    const results: Dictionary<any>[] = []
     this.denormalizedData.forEach((input) => {
       const normalizedData = this.normalizeFromObject(input, this.schema)
       const { result } = normalizedData
@@ -79,16 +80,18 @@ export class NormalizProcess {
           input
         )?.name
 
-        const schemaFromDef = this.schemas.get(schemaFromProDef)
+        if (schemaFromProDef) {
+          const schemaFromDef = this.schemas.get(schemaFromProDef)
 
-        if (schemaFromDef) {
-          processedEntity[propertyName] = this.normalizeFromAnyType(
-            input[propertyName],
-            schemaFromDef
-          )
-        } else {
-          console.warn(`Schema is not found for ${propertyName}`)
-          processedEntity[propertyName] = input[propertyName]
+          if (schemaFromDef) {
+            processedEntity[propertyName] = this.normalizeFromAnyType(
+              input[propertyName],
+              schemaFromDef
+            )
+          } else {
+            console.warn(`Schema is not found for ${propertyName}`)
+            processedEntity[propertyName] = input[propertyName]
+          }
         }
       }
     )
@@ -127,7 +130,7 @@ export class NormalizProcess {
       input = []
     }
 
-    const processedEntity = []
+    const processedEntity: Dictionary<any>[] = []
     input.forEach((item, index) => {
       processedEntity[index] = this.normalizeFromAnyType(item, schema)
     })
@@ -139,13 +142,13 @@ export class NormalizProcess {
     input: Dictionary<any>,
     schema: EntitySchema,
     rawInput: Dictionary<any>
-  ) {
+  ): void {
     let result = schema.getIdentifierValue(input)
 
     if (!result) {
       result = schema.getIdentifierValue(rawInput)
       if (!result) {
-        return null
+        return
       }
     }
 
@@ -160,6 +163,8 @@ export class NormalizProcess {
       ...this.entities[entityName][result],
       ...input,
     })
+
+    return
   }
 
   private validate(input: any, model: any) {

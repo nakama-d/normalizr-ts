@@ -1,17 +1,21 @@
 {
   "name": "@nakama.d/normalizr-ts",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": " complet & simple typescript rewrite of normalizr with Class support",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "ts-node ./src/index.test.ts",
+    "build": "tsc",
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "prettier **/*.{ts,js,json} --check",
     "test:unit": "jest",
-    "lint": "prettier **/*.{ts,js,json} --write"
+    "lint": "prettier **/*.{ts,js,json} --write",
+    "prepublishOnly" : "npm test && npm run build",
+    "preversion" : "npm run test"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": ["normalizr", "typescript", "json"],
+  "author": "Nakama.d",
+  "license": "MIT",
   "prettier": {
     "$schema": "http://json.schemastore.org/prettierrc",
     "singleQuote": true,
