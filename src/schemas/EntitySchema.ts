@@ -13,7 +13,7 @@ export interface PropertiesDefinitions {
 
 export type IdentifierFunction = (
   record: Dictionary<any>,
-  parent: Dictionary<any>,
+  parent: Dictionary<any> | null,
   key: string | null
 ) => string
 
@@ -50,10 +50,10 @@ export class EntitySchema {
 
     this.relations = Object.keys(options.relations || {}).reduce(
       (entitySchema, key) => {
-        const relation = options.relations[key]
+        const relation = (options.relations || {})[key]
         return { ...entitySchema, [key]: relation }
       },
-      this.relations || {}
+      {}
     )
   }
 

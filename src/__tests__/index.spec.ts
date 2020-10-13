@@ -44,7 +44,7 @@ describe('normalize', () => {
     const user = new EntitySchema('users')
     user.setRelation('friends', [user])
 
-    const input = { id: 123, friends: [] }
+    const input: any = { id: 123, friends: [] }
     input.friends.push(input)
 
     const normalizer = new Normalizer([user])
@@ -67,7 +67,7 @@ describe('normalize', () => {
     const u = new EntitySchema('users')
     u.setRelation('friends', [u])
 
-    const input = { id: 123, friends: [] }
+    const input: any = { id: 123, friends: [] }
     input.friends.push(input)
 
     const inputs = [input, { id: 897, friends: [] }]
@@ -233,7 +233,7 @@ describe('normalize', () => {
   test('uses the non-normalized input when getting the ID for an entity', () => {
     const userEntity = new EntitySchema('users')
     const idAttributeFn = jest.fn(
-      (nonNormalized, parent, key) => nonNormalized.user.id
+      (nonNormalized) => nonNormalized.user.id
     )
     const recommendation = new EntitySchema('recommendations', {
       relations: { user: userEntity },
@@ -291,7 +291,7 @@ describe('normalize', () => {
   })
 
   test('can normalize object without proper object prototype inheritance', () => {
-    const test = { id: 1, elements: [] }
+    const test: any = { id: 1, elements: [] }
     test.elements.push(
       Object.assign(Object.create(null), {
         id: 18,
@@ -312,7 +312,7 @@ describe('normalize', () => {
     const mediaSchema = new EntitySchema('media')
     const listsSchema = new EntitySchema('lists')
 
-    const schemaMap = {
+    const schemaMap: any = {
       media: mediaSchema,
       lists: listsSchema,
     }
