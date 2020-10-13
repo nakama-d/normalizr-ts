@@ -9,11 +9,11 @@ All tests normalization test specs from [normalizr](https://github.com/paularmst
 Install from the NPM repository using yarn or npm:
 
 ```shell
-yarn add normalizr-ts
+yarn add @nakama.d/normalizr-ts
 ```
 
 ```shell
-npm install normalizr-ts
+npm install @nakama.d/normalizr-ts
 ```
 
 ## Documentation
@@ -56,7 +56,7 @@ Consider a typical blog post. The API response for a single post might look some
 We have two nested entity types within our `article`: `users` and `comments`. Using various `schema`, we can normalize all three entity types down:
 
 ```ts
-import { EntitySchema, Normalizer } from 'normalizr-ts'
+import { EntitySchema, Normalizer } from '@nakama.d/normalizr-ts'
 
 // Define a users schema
 const user = new EntitySchema('users')
@@ -107,7 +107,7 @@ Now, `normalizedData` will be:
 
 
 ```ts
-import { EntitySchema, Normalizer } from 'normalizr-ts'
+import { EntitySchema, Normalizer } from '@nakama.d/normalizr-ts'
 
 class User {...}
 class Comment {...}
