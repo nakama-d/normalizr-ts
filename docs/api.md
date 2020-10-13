@@ -16,7 +16,7 @@ normalize(data, schemaName): Normalizes input data per the schema definition pro
 ### Usage
 
 ```js
-import { EntitySchema, Normalizer } from 'normalizr-ts'
+import { EntitySchema, Normalizer } from '@nakama.d/normalizr-ts'
 
 const myData = { users: [{ id: 1 }, { id: 2 }] }
 const user = new EntitySchema('users')
