@@ -155,14 +155,15 @@ export class NormalizProcess {
     const entityName = schema.name
     this.entities[entityName] = this.entities[entityName] || {}
 
-    this.entities[entityName][result] = schema.options.entityClass
-      ? new schema.options.entityClass()
-      : {}
-
-    Object.assign(this.entities[entityName][result], {
-      ...this.entities[entityName][result],
-      ...input,
-    })
+    this.entities[entityName][result] = schema.options.entityFactory
+      ? schema.options.entityFactory({
+          ...this.entities[entityName][result],
+          ...input,
+        })
+      : {
+          ...this.entities[entityName][result],
+          ...input,
+        }
 
     return
   }

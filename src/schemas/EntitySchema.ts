@@ -5,7 +5,8 @@ const getDefaultGetId = (attr: string): IdentifierFunction => (
   record: Dictionary<any>
 ) => (ImmutableUtils.isImmutable(record) ? record.get(attr) : record[attr])
 
-export type EntityClass = { new (...args: any[]): any }
+
+export type EntityClass = { new (...args: any[]): any } | { new (): any }
 
 export interface PropertiesDefinitions {
   [propertyName: string]: (parent: Dictionary<any>) => EntitySchema | undefined
@@ -18,7 +19,7 @@ export type IdentifierFunction = (
 ) => string
 
 export interface EntitySchemaOptions {
-  entityClass?: EntityClass
+  entityFactory?: (entityData: Dictionary<any>) => any
   relations?: {
     [propertyName: string]: EntitySchema | EntitySchema[]
   }

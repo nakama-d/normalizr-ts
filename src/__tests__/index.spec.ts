@@ -232,9 +232,7 @@ describe('normalize', () => {
 
   test('uses the non-normalized input when getting the ID for an entity', () => {
     const userEntity = new EntitySchema('users')
-    const idAttributeFn = jest.fn(
-      (nonNormalized) => nonNormalized.user.id
-    )
+    const idAttributeFn = jest.fn((nonNormalized) => nonNormalized.user.id)
     const recommendation = new EntitySchema('recommendations', {
       relations: { user: userEntity },
       identifier: idAttributeFn,
@@ -427,14 +425,15 @@ describe('normalize', () => {
 
   test('can normalize input and return Class instance', () => {
     const userSchema = new EntitySchema('users', {
-      entityClass: User,
+      entityFactory: (e: any) => new User(e.id, e.name),
     })
     const commentSchema = new EntitySchema('comments', {
-      entityClass: Comment,
+      entityFactory: (e: any) => new Comment(e.id, e.comment, e.user),
       relations: { user: userSchema },
     })
     const articleSchema = new EntitySchema('articles', {
-      entityClass: Article,
+      entityFactory: (e: any) =>
+        new Article(e.id, e.title, e.body, e.author, e.comments),
       relations: {
         author: userSchema,
         comments: [commentSchema],
